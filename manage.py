@@ -11,8 +11,7 @@ class Config(object):
     SQLALCHEMY_DATABASE_URL="mysql://root:mysql@127.0.0.1:3306/information27"
     SQLALCHEMY_TRACK_MODIFICATIONS=False
 
-
- """加载配置 """
+"""加载配置 """
 app.config.from_object(Config)
 
 db=SQLAlchemy(app)
