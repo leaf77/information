@@ -4,6 +4,7 @@ from flask import Flask,session
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask_session import Session
 from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
 
 class Config(object):
     """项目的配置信息"""
@@ -44,6 +45,11 @@ CSRFProtect(app)
 Session(app)
 
 manager = Manager(app)
+#将app于db关联
+Migrate(app,db)
+#将迁移命令添加到manager中
+manager.add_command("db",MigrateCommand)
+
 
 @app.route('/')
 def index():
