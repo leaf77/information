@@ -24,3 +24,24 @@ class Config(object):
     SESSION_PERMANENT=False
     """设置过期时间（两天）"""
     PERMANENT_SESSION_LIFETIME = 86400*2
+
+
+class DevelopmentConfig(Config):
+    """开发环境下的配置"""
+    DEBUG = True
+
+class ProductionConfig(Config):
+    """生产环境下的配置"""
+    DEBUG = False
+
+
+class TestingConfig(Config):
+    """单元测试环境下的配置"""
+    DEBUG = True
+    TestingConfig = True
+
+config = {
+    "development":DevelopmentConfig,
+    "production":ProductionConfig,
+    "testing":TestingConfig
+}
