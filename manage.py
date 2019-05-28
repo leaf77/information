@@ -7,6 +7,9 @@ from flask_migrate import Migrate, MigrateCommand
 
 from infor import create_app,db
 
+#manage.py是程序启动的入口，只关心启动的相关参数以及内容，
+# 不关心具体的创建app或者相关的业务逻辑
+
 #通过指定的配置名字创建对应配置的app
 #create_app 就类似于工厂方法
 app=create_app('development')
@@ -17,20 +20,6 @@ Migrate(app,db)
 #将迁移命令添加到manager中
 manager.add_command("db",MigrateCommand)
 
-
-@app.route('/')
-def index():
-    # session["name"]='leaf77'
-
-    #测试打印日志
-    logging.debug("测试debug")
-    logging.warning("测试warning")
-    logging.error("测试error")
-    logging.fatal("测试fatal")
-
-
-    current_app.logger.error('测试error')
-    return 'index'
 
 
 if __name__ == '__main__':
