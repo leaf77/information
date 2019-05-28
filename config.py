@@ -8,7 +8,7 @@ class Config(object):
     SECRET_KEY="isfTBhp56eIDqQbyhuZ8VE12zZZwnH8L8TMtPiyi+XDTRl6H3DyEAzxiTZZ9y3mu"
 
     """为数据库添加配置"""
-    SQLALCHEMY_DATABASE_URL="mysql://root:mysql@127.0.0.1:3306/information27"
+    SQLALCHEMY_DATABASE_URI="mysql://root:mysql@127.0.0.1:3306/information27"
     SQLALCHEMY_TRACK_MODIFICATIONS=False
 
     """Redis的配置"""

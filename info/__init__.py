@@ -1,14 +1,15 @@
 import logging
 from logging.handlers import RotatingFileHandler
-
 from flask import Flask
 #可以用来指定session的保存位置
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.wtf import CSRFProtect
 from redis import StrictRedis
 from sqlalchemy.orm import Session
-
 from config import config
+import pymysql
+pymysql.install_as_MySQLdb()
+
 
 
 # 初始化数据库
@@ -48,7 +49,7 @@ def create_app(config_name):
     Session(app)
 
     #注册蓝图(啥时候注册啥时候导入)
-    from infor.modules.index import index_blu
+    from info.modules.index import index_blu
     app.register_blueprint(index_blu)
 
     return app

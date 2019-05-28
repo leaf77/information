@@ -1,4 +1,4 @@
-from infor import redis_store
+from info import redis_store
 from . import index_blu
 
 @index_blu.route('/')
