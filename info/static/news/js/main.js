@@ -142,8 +142,8 @@ $(function(){
             $("#register-password-err").show();
             return;
         }
-
         // 发起注册请求
+
 
     })
 })
@@ -179,9 +179,52 @@ function sendSMSCode() {
         return;
     }
 
-    // TODO 发送短信验证码
-}
+    // 发送短信验证码
 
+    var params = {
+        "mobile": mobile,
+        "image_code": imageCode,
+        "image_code_id": imageCodeId
+    }
+
+    // 发起注册请求
+    $.ajax({
+        //请求地址
+        url: "/passport/sms_code",
+        //请求方式
+        type: "post",
+        //请求参数
+        data: JSON.stringify(params),
+        //请求参数的数据类型
+        contentType: "application/json",
+        success: function (response) {
+            if (response.error == "0") {
+                //代表发送成功
+                var num = 60
+                var t = setInterval(function () {
+
+                    if (num == 1) {
+                        //代表倒计时结束
+                        //清除倒计时
+                        clearInterval(t)
+
+                        //设置显示内容
+                        $(".get_code").html(num + "点击获取验证码")
+                        $(".get_code").attr("onclick", "sendSMSCode();");
+
+                    } else {
+                        num -= 1
+                        // 设置a标签显示的内容
+                        $(".get_code").html(num + "秒")
+                    }
+                }, 1000)
+            } else {
+                //代表发送失败
+                alert(response.errmsg)
+            }
+        }
+    })
+}
 // 调用该函数模拟点击左侧按钮
 function fnChangeMenu(n) {
     var $li = $('.option_list li');
