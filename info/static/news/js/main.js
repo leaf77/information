@@ -150,9 +150,14 @@ $(function(){
 
 var imageCodeId = ""
 
-// TODO 生成一个图片验证码的编号，并设置页面中图片验证码img标签的src属性
+//生成一个图片验证码的编号，并设置页面中图片验证码img标签的src属性
 function generateImageCode() {
-
+    //浏览器要发起图片验证码请求/imgae_code?imageCodeId=xxxxx
+    imageCodeId = generateUUID()
+    //生成url
+    var url = "/imgae_code?imageCodeId="+imageCodeId
+    //给指定img标签设置src,设置了地址之后，img标签就会去向这个地址发起请求，请求图片
+    $(".get_pic_code").attr("src",url)
 }
 
 // 发送短信验证码
