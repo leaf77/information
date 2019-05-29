@@ -1,5 +1,6 @@
 from flask import abort
 from flask import current_app
+from flask import make_response
 from flask import request
 
 from info import constants, redis_store
@@ -34,4 +35,7 @@ def get_image_code():
         abort(500)
 
     # 5.返回验证码图片
-    return image
+    response = make_response(image)
+    # 设置数据的类型，一边浏览器更加智能识别其是什么类型
+    response.hearders["Content-Type"]="image/jpg"
+    return response
