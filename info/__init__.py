@@ -31,7 +31,7 @@ def setup_log(config_name):
     #为全局的日志工具对象（flask app的使用）添加日志记录器
     logging.getLogger().addHandler(file_log_handler)
 
-def create_app(config_name):
+def create_app(config_name, passport_blu=None):
     #配置日志,并且传入配置名字，以便能获取到指定配置所对应的日志等级
     setup_log(config_name)
     #创建Flask对象
@@ -51,5 +51,8 @@ def create_app(config_name):
     #注册蓝图(啥时候注册啥时候导入)
     from info.modules.index import index_blu
     app.register_blueprint(index_blu)
+
+    from info.modules.passport import passport_blu
+    app.register_blueprint(passport_blu)
 
     return app
