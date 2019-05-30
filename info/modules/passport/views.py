@@ -65,7 +65,9 @@ def register():
     #记录用户最后一次登录时间
     user.last_login = datetime.now()
 
-    #TODO 对密码做处理
+    #对密码做处理
+    #需求：在设置password的时候，去对password进行加密，并且将加密结果给user.password_hash赋值
+    user.password = password
 
     #6. 添加到数据库
     try:
