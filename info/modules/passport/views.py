@@ -129,6 +129,7 @@ def send_sms_code():
         return jsonify(errno=RET.NODATA,errmsg="图片验证码已过期")
 
     #4. 与用户的验证码内容进行对比，如果对比不一致，那么返回验证码输入错误
+    real_image_code = real_image_code.decode()
     if real_image_code.upper()!=image_code.upper():
         return jsonify(errno=RET.DATAERR,errmsg="验证码输入错误")
 
@@ -138,10 +139,10 @@ def send_sms_code():
     current_app.logger.debug("短信验证码内容是：%s" % sms_code_str)
 
     #6.发送短信验证码
-    result = CCP().send_template_sms(mobile, [sms_code_str,constants.SMS_CODE_REDIS_EXPIRES/5],"1")
-    if result != 0:
-        #代表发送不成功
-        return jsonify(errno=RET.THIRDERR,errmsg="发送短信失败")
+    # result = CCP().send_template_sms(mobile, [sms_code_str,constants.SMS_CODE_REDIS_EXPIRES/5],"1")
+    # if result != 0:
+    #     #代表发送不成功
+    #     return jsonify(errno=RET.THIRDERR,errmsg="发送短信失败")
 
     #保存验证码内容到redis
     try:
@@ -172,6 +173,7 @@ def get_image_code():
 
     # 3.生成图片验证码
     name, text, image = captcha.generate_captcha()
+    current_app.logger.debug("图片验证码内容是：%s"%text)
 
     # 4.保存图片验证码文字内容到redis
     try:
