@@ -4,6 +4,7 @@ from flask import Flask
 #可以用来指定session的保存位置
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.wtf import CSRFProtect
+from flask.ext.wtf.csrf import generate_csrf
 from redis import StrictRedis
 from sqlalchemy.orm import Session
 from config import config
@@ -44,9 +45,21 @@ def create_app(config_name, passport_blu=None):
     global redis_store
     redis_store=StrictRedis(host=config[config_name].REDIS_HOST,port=config[config_name].REDIS_PORT)
     #开启当前项目CSRF保护,只做服务器验证功能
-    # CSRFProtect(app)
+    #帮我们做了：从cookie中取出随机值，从表单中取出随机值，然后进行校验，并且响应校验结果
+    #我们需要做：1.在返回响应的时候，往cookie中添加一个csrf_token,并且在表单中添加一个隐藏的csrf_token
+    #而我们现在登录或者注册不是使用的表单，而是使用ajax请求，所以我们需要在ajax请求的时候带上csrf_token这个随机值就可以了
+    CSRFProtect(app)
     #设置session保存指定位置
     Session(app)
+
+    @app.after_response
+    def after_response(response):
+        #生成随机的csrf_token的值
+        csrf_token = generate_csrf()
+        #设置一个cookie
+        response.set_cookie("csrd_token", csrf_token)
+        return response
+
 
     #注册蓝图(啥时候注册啥时候导入)
     from info.modules.index import index_blu
