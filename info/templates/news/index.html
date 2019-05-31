@@ -93,7 +93,7 @@
             <ul class="rank_list">
 
                 {% for news in data.news_dict_li %}
-                    <li><span>{{ loop.index }}</span><a href="#">{{ news.title }}</a></li>
+                    <li><span class="{{ loop.index0 | index_class }}">{{ loop.index }}</span><a href="#">{{ news.title }}</a></li>
                 {% endfor %}
 {#                <li><span class="first">1</span><a href="#">势如破竹！人民币再度连闯四道关口 在岸、离岸双双升破6.42</a></li>#}
 {#                <li><span class="second">2</span><a href="#">凛冬已至，还有多少银行人在假装干银行</a></li>#}
