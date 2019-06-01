@@ -10,8 +10,6 @@ from sqlalchemy.orm import Session
 from config import config
 import pymysql
 
-from info.utils.common import do_index_class
-
 pymysql.install_as_MySQLdb()
 
 
@@ -54,6 +52,8 @@ def create_app(config_name, passport_blu=None):
     CSRFProtect(app)
     #设置session保存指定位置
     Session(app)
+
+    from info.utils.common import do_index_class
 
     #添加自定义过滤器
     app.add_template_filter(do_index_class, "index_class")
