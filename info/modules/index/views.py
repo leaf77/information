@@ -74,6 +74,7 @@ def index():
     user_id = session.get("user_id",None)
     user = None
     if user_id:
+        #尝试查询用户的模型
         try:
             user = User.query.get(user_id)
         except Exception as e:
