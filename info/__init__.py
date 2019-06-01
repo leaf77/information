@@ -66,12 +66,14 @@ def create_app(config_name, passport_blu=None):
         response.set_cookie("csrd_token", csrf_token)
         return response
 
-
     #注册蓝图(啥时候注册啥时候导入)
     from info.modules.index import index_blu
     app.register_blueprint(index_blu)
 
     from info.modules.passport import passport_blu
     app.register_blueprint(passport_blu)
+
+    from info.modules.news import news_blu
+    app.register_blueprint(news_blu)
 
     return app
