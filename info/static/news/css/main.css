@@ -610,7 +610,7 @@ body{
 
 
 .collection{
-    display:inline-block;;
+    /*display:inline-block;;*/
     width:98px;
     line-height:34px;
     text-indent:45px;
@@ -618,7 +618,7 @@ body{
     color:#3791ef;
     border-radius:4px;
     font-size:14px;
-    margin:0px 5px;
+    /*margin:0px 5px;*/
     background:url(../images/collect_icons.png) 21px 7px no-repeat;
     overflow:hidden;
 }
